@@ -1,0 +1,23 @@
+name: PluginChunck
+version: '1.0-SNAPSHOT'
+main: fr.rabio.pluginChunck.PluginChunck
+api-version: '1.21'
+authors: [ Rabio15 ]
+description: Plugin de chunck
+commands:
+  invite:
+    description: Gérer les points des joueurs.
+    usage: /invite [nom du joueur]
+  team:
+    description: commande de pour accepter ou refuser une invitation !
+    usage: /team [refuse] or [accept]
+  claim:
+    description: Permet de claim une zone si elle n'est pas déjà claim
+    usage: /claim
+  unclaim:
+    description: permet de declaim
+    usage: /Unclaim
+  power:
+    description: permet de connaitre son power
+    usage: /power
+
