@@ -48,21 +48,46 @@ public class TeamManager  {
         //en gros j'ai mis nom parce que quand le truc sauvegarde il sauvegarde la entryset donc le nom de la team
         //donc j'ai fait en sorte de faire retourner le truc nom comme ça le truc va dans team puis player puis nom de la team
 
-        return config.getString("teams." + player.getUniqueId(), nom);
+        return config.getString("teams." + player.getUniqueId(), null);
 
 
 
     }
 
 
-    public boolean ContainTeam(UUID player){
 
 
-       return Team.containsKey(player);
+    public boolean ContainTeam_Other_Version(Player player){
+
+
+        if(getTeamDuJoueur(player) != null){
+            player.sendMessage("Vous êtes dans une team bravo !");
+            return true;
+
+        }else{
+
+            player.sendMessage("Vous n'êtes dans aucune team ");
+
+
+        }
+
+        if(getTeamDuJoueur(player) == null){
+
+            player.sendMessage("NULL GERMAIN NULLL ");
+        }
+
+
+
+
+        return false;
 
 
 
     }
+
+
+
+
 
 
     public int Team_invite(Player player){

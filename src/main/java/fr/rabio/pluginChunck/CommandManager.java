@@ -50,11 +50,11 @@ public class CommandManager  implements CommandExecutor {
 
 
 
-                    if(teams.ContainTeam(target.getUniqueId())){
+                    if(teams.ContainTeam_Other_Version(target)){
                         sender.sendMessage("§c Ce joueur est déjà dans une teams !");
                         return true;
 
-                    }  if(teams.ContainTeam(player.getUniqueId())){
+                    }  if(!teams.ContainTeam_Other_Version(player)){
 
                         sender.sendMessage("§c Vous ne pouvez inviter personne car vous n'avez pas de team !");
                         return true;
@@ -144,6 +144,27 @@ public class CommandManager  implements CommandExecutor {
                     return true;
 
                 }
+
+
+                if(args[0].equalsIgnoreCase("verif")){
+
+
+                    if(teams.ContainTeam_Other_Version(player)){
+
+                        Other_player.sendMessage("§2Felicitation vous êtes dans une Team");
+
+                    }else {
+                        Other_player.sendMessage("§4Vous n'êtes dans aucune team :(");
+
+
+                    }
+
+
+
+                    return true;
+
+                }
+
 
 
 

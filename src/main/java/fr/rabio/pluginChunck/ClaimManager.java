@@ -54,7 +54,7 @@ public class ClaimManager implements Listener {
 
             if (!isChunkAlreadyClaimed(ChunkX, ChunkZ)) {
 
-                    if(manage_power.ContainTeam(player.getUniqueId())){
+                    if(manage_power.ContainTeam_Other_Version(player)){
 
                         player.sendMessage("Vous êtes dans une team !");
 
@@ -70,7 +70,7 @@ public class ClaimManager implements Listener {
 
                     }
 
-                if (!manage_power.ContainTeam(player.getUniqueId())) {
+                if (!manage_power.ContainTeam_Other_Version(player)) {
 
                     information_Chunk.addClaimedChunk(player, ChunkX, ChunkZ);
 
@@ -119,7 +119,9 @@ public class ClaimManager implements Listener {
         int ChunkZ = chunk.getZ();
 
       if(isChunkAlreadyClaimed(ChunkX,ChunkZ)){
-          if (!manage_power.ContainTeam(player.getUniqueId())) {
+
+
+          if (!manage_power.ContainTeam_Other_Version(player)) {
               information_Chunk.RemoveClaimedChunk(player, ChunkX, ChunkZ);
 
               player.sendMessage("Vous venez de unclaim la zone ! le Chun x est " + ChunkX + "Chunk Z est :" + ChunkZ);
@@ -224,7 +226,7 @@ public class ClaimManager implements Listener {
         if(infobreak.isChunkClaimedParQuelquUn(ChunkX,ChunkZ)) {
 
 
-            if (infoteams.ContainTeam(player.getUniqueId())) {
+            if (infoteams.ContainTeam_Other_Version(player)) {
                 if(!infobreak.OwnChunkTeam(player, ChunkX, ChunkZ)){
                     player.sendMessage("§2Vous ne pouvez pas casser dans ce chunk car il est déjà claim par une team");
                     event.setCancelled(true);
@@ -264,7 +266,7 @@ public class ClaimManager implements Listener {
         if(infobreak.isChunkClaimedParQuelquUn(ChunkX,ChunkZ)) {
 
 
-            if (infoteams.ContainTeam(player.getUniqueId())) {
+            if (infoteams.ContainTeam_Other_Version(player)) {
                 if(!infobreak.OwnChunkTeam(player, ChunkX, ChunkZ)){
                     player.sendMessage("§2Vous ne pouvez pas construire dans ce chunk car il est déjà claim par une team");
                     event.setCancelled(true);
