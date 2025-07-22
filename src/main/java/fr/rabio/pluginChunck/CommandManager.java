@@ -89,9 +89,10 @@ public class CommandManager  implements CommandExecutor {
                 Player Other_player = (Player) sender;
 
 
-                int validation = teams.Team_invite(Other_player);
 
               //  if (validation == 1) {
+
+
 
                     if (args[0].equalsIgnoreCase("refuse")) {
 
@@ -132,7 +133,24 @@ public class CommandManager  implements CommandExecutor {
 
                     return true;
 
-                }  if (args[0].equalsIgnoreCase("remove")) {
+                }
+
+                if(args[0].equalsIgnoreCase("info")){
+
+                    Other_player.sendMessage("Votre team est : " + teams.getTeamDuJoueur(Other_player));
+
+
+
+                    return true;
+
+                }
+
+
+
+
+
+
+                if (args[0].equalsIgnoreCase("remove")) {
 
                     Other_player.sendMessage("§2 Vous venez de vous retirer d'une team!");
 
@@ -154,15 +172,11 @@ public class CommandManager  implements CommandExecutor {
                 player.sendMessage("§5 Vous venez de exucuter la comande Claim !");
                 ClaimManager claim = new ClaimManager(main);
 
-                if(!teams.ContainTeam(player.getUniqueId())) {
+
 
                     claim.Claim(player);
 
-                }else{
 
-
-
-                }
 
                 return true;
 

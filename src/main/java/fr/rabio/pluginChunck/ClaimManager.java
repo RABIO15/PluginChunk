@@ -54,6 +54,21 @@ public class ClaimManager implements Listener {
 
             if (!isChunkAlreadyClaimed(ChunkX, ChunkZ)) {
 
+                    if(manage_power.ContainTeam(player.getUniqueId())){
+
+                        player.sendMessage("Vous êtes dans une team !");
+
+                        information_Chunk.addClaimedChunkTeam(player, ChunkX, ChunkZ);
+                        player.sendMessage("Votre team à claim ce chunk !!!");
+                        player.sendMessage("Tu es dans le chunk X=" + ChunkX + ", Z=" + ChunkZ);
+
+                        manage_power.RemovePower(player, 5);
+
+                        player.sendMessage("§2 - 5 de power votre power actuel est de " + manage_power.GetPowerPlayer(player));
+
+
+
+                    }
 
                 if (!manage_power.ContainTeam(player.getUniqueId())) {
 
