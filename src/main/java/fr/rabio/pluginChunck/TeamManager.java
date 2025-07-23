@@ -44,7 +44,7 @@ public class TeamManager  {
         File file = new File(main.getDataFolder(), "teams.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 
-        String nom = "." + Team.entrySet();
+
         //en gros j'ai mis nom parce que quand le truc sauvegarde il sauvegarde la entryset donc le nom de la team
         //donc j'ai fait en sorte de faire retourner le truc nom comme ça le truc va dans team puis player puis nom de la team
 

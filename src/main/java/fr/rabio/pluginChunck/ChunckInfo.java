@@ -61,7 +61,7 @@ public class ChunckInfo {
         File file = new File(main.getDataFolder(), "Teams.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 
-        String key = "players." + teams.GetPowerPlayer(player) + ".claimed_chunks";
+        String key = "team." + teams.getTeamDuJoueur(player) + ".claimed_chunks";
         List<String> chunks = config.getStringList(key);
 
         String chunkCoord = chunkX + ";" + chunkZ;
@@ -76,6 +76,117 @@ public class ChunckInfo {
             }
         }
     }
+
+
+    public void addClaimedChunkPower(Player player, int chunkX, int chunkZ,int power){
+
+
+
+
+
+            File file = new File(main.getDataFolder(), "InformationChunck.yml");
+            YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+
+            String chunkCoord = chunkX + ";" + chunkZ;
+            String uuidPath = "players." + player.getUniqueId();
+            String chunkListPath = uuidPath + ".claimed_chunks";
+            String chunkPowerPath = uuidPath + ".chunk_power." + chunkCoord;
+
+            // Ajouter à la liste s'il n'est pas déjà là
+            List<String> claimedChunks = config.getStringList(chunkListPath);
+            if (!claimedChunks.contains(chunkCoord)) {
+                claimedChunks.add(chunkCoord);
+                config.set(chunkListPath, claimedChunks);
+            }
+
+            // Enregistrer le power pour ce chunk
+            config.set(chunkPowerPath, power);
+
+            try {
+                config.save(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+
+
+    }
+
+
+
+    public void removeClaimedChunk(Player player, int chunkX, int chunkZ) {
+        File file = new File(main.getDataFolder(), "InformationChunck.yml");
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+
+        String chunkCoord = chunkX + ";" + chunkZ;
+        String uuidPath = "players." + player.getUniqueId();
+        String chunkListPath = uuidPath + ".claimed_chunks";
+        String chunkPowerPath = uuidPath + ".chunk_power." + chunkCoord;
+
+        // 1. Retirer de la liste des chunks claim
+        List<String> claimedChunks = config.getStringList(chunkListPath);
+        if (claimedChunks.contains(chunkCoord)) {
+            claimedChunks.remove(chunkCoord);
+            config.set(chunkListPath, claimedChunks); // Mets à jour la liste
+        }
+
+        // 2. Supprimer le power du chunk
+        if (config.contains(chunkPowerPath)) {
+            config.set(chunkPowerPath, null);
+        }
+
+        // 3. Sauvegarder le fichier
+        try {
+            config.save(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+    public int getChunkPower(Player player, int chunkX, int chunkZ) {
+        File file = new File(main.getDataFolder(), "InformationChunck.yml");
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+
+        String chunkCoord = chunkX + ";" + chunkZ;
+        String path = "players." + player.getUniqueId() + ".chunk_power." + chunkCoord;
+
+
+        return config.getInt(path, 0); // 0 si non trouvé
+    }
+
+
+
+    public boolean Is_Power_Chunk(Player player){
+
+        File file = new File(main.getDataFolder(), "InformationChunck.yml");
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+
+        String chunkCoord = chunkX + ";" + chunkZ;
+        String uuidPath = "players." + player.getUniqueId();
+
+        String chunkPowerPath = uuidPath + ".chunk_power." + chunkCoord;
+
+        // 1. Retirer de la liste des chunks claim
+
+
+        // 2. Supprimer le power du chunk
+        if (config.contains(chunkPowerPath)) {
+            return true;
+        }
+
+        // 3. Sauvegarder le fichier
+
+
+        return false;
+    }
+
+
+
 
 
 
@@ -170,6 +281,33 @@ public class ChunckInfo {
 
         return false; // personne n’a claim ce chunk
     }
+
+
+
+    public boolean isChunkClaimedParQuelquUn_Team(int chunkX, int chunkZ,Player player ) {
+        File file = new File(main.getDataFolder(), "Teams.yml");
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+
+        if (!config.contains("team")) return false;
+
+        ConfigurationSection TeamSection = config.getConfigurationSection("team");
+        if (TeamSection == null) return false;
+
+        String chunkCoord = chunkX + ";" + chunkZ;
+
+        for (String uuidStr : TeamSection.getKeys(false)) {
+            List<String> claimedChunks = config.getStringList("team." + uuidStr  + ".claimed_chunks");
+
+            if (claimedChunks.contains(chunkCoord)) {
+                return true; // trouvé => quelqu'un a claim
+            }
+        }
+
+        return false; // personne n’a claim ce chunk
+    }
+
+
+
 
 
 

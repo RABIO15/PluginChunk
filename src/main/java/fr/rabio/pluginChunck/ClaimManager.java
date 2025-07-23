@@ -49,26 +49,14 @@ public class ClaimManager implements Listener {
         int ChunkZ = chunk.getZ();
         int power  = manage_power.GetPowerPlayer(player);
 
+
+
         if(power >= 5) {
 
 
-            if (!isChunkAlreadyClaimed(ChunkX, ChunkZ)) {
-
-                    if(manage_power.ContainTeam_Other_Version(player)){
-
-                        player.sendMessage("Vous êtes dans une team !");
-
-                        information_Chunk.addClaimedChunkTeam(player, ChunkX, ChunkZ);
-                        player.sendMessage("Votre team à claim ce chunk !!!");
-                        player.sendMessage("Tu es dans le chunk X=" + ChunkX + ", Z=" + ChunkZ);
-
-                        manage_power.RemovePower(player, 5);
-
-                        player.sendMessage("§2 - 5 de power votre power actuel est de " + manage_power.GetPowerPlayer(player));
+            if (!isChunkAlreadyClaimed(ChunkX, ChunkZ) || information_Chunk.isChunkClaimedParQuelquUn_Team(ChunkX, ChunkZ,player)) {
 
 
-
-                    }
 
                 if (!manage_power.ContainTeam_Other_Version(player)) {
 
@@ -89,6 +77,8 @@ public class ClaimManager implements Listener {
                     player.sendMessage("Vous êtes dans une team !");
 
                     information_Chunk.addClaimedChunkTeam(player, ChunkX, ChunkZ);
+
+
                     player.sendMessage("Votre team à claim ce chunk !!!");
                     player.sendMessage("Tu es dans le chunk X=" + ChunkX + ", Z=" + ChunkZ);
 
@@ -114,11 +104,14 @@ public class ClaimManager implements Listener {
 
     public void UnClaim(Player player){
 
+
+
+
         Chunk chunk = player.getLocation().getChunk();
         int ChunkX = chunk.getX();
         int ChunkZ = chunk.getZ();
 
-      if(isChunkAlreadyClaimed(ChunkX,ChunkZ)){
+      if(isChunkAlreadyClaimed(ChunkX, ChunkZ) || information_Chunk.isChunkClaimedParQuelquUn_Team(ChunkX, ChunkZ,player)){
 
 
           if (!manage_power.ContainTeam_Other_Version(player)) {
@@ -150,7 +143,14 @@ public class ClaimManager implements Listener {
 
       }else {
 
-          player.sendMessage("Ce chunk n'est pas claim  ");
+
+          if (!isChunkAlreadyClaimed(ChunkX, ChunkZ)) {
+              player.sendMessage("Ce chunk n'est pas claim  ");
+
+
+          }
+
+
 
       }
 
