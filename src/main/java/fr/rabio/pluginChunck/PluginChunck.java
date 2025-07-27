@@ -16,7 +16,7 @@ public final class PluginChunck extends JavaPlugin {
         PlayerManager playermanager = new PlayerManager(this);
         TeamManager team = new TeamManager(this);
 
-        team.Load_HashMapTeam();
+       // team.Load_HashMapTeam();
 
         getServer().getPluginManager().registerEvents(new ClaimManager(this), this);
         getServer().getPluginManager().registerEvents(new PlayerManager(this), this);

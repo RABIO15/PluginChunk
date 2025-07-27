@@ -228,10 +228,10 @@ public class ChunckInfo {
 
     public boolean OwnChunkTeam(Player player , int chunkX, int chunkZ){
 
-        File file = new File(main.getDataFolder(), "InformationChunck.yml");
+        File file = new File(main.getDataFolder(), "Teams.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 
-        String key = "players." + teams.getTeamDuJoueur(player) + ".claimed_chunks";
+        String key = "team." + teams.getTeamDuJoueur(player) + ".claimed_chunks";
         List<String> chunks = config.getStringList(key);
 
         String chunkCoord = chunkX + ";" + chunkZ;
@@ -295,7 +295,7 @@ public class ChunckInfo {
 
         String chunkCoord = chunkX + ";" + chunkZ;
 
-        for (String uuidStr : TeamSection.getKeys(false)) {
+        for (String uuidStr : TeamSection.getKeys(true)) {
             List<String> claimedChunks = config.getStringList("team." + uuidStr  + ".claimed_chunks");
 
             if (claimedChunks.contains(chunkCoord)) {
@@ -336,10 +336,10 @@ public class ChunckInfo {
 
 
     public void RemoveClaimedChunkTeam(Player player, int chunkX, int chunkZ) {
-        File file = new File(main.getDataFolder(), "InformationChunck.yml");
+        File file = new File(main.getDataFolder(), "Teams.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 
-        String key = "players." + teams.getTeamDuJoueur(player) + ".claimed_chunks";
+        String key = "team." + teams.getTeamDuJoueur(player) + ".claimed_chunks";
         List<String> chunks = config.getStringList(key);
 
         String chunkCoord = chunkX + ";" + chunkZ;

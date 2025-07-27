@@ -217,13 +217,13 @@ public class SaveManager {
 
 
     public void Save_HashMapTeam(HashMap<UUID, String> teams) {
-        File file = new File(main.getDataFolder(), "teams.yml");
+        File file = new File(main.getDataFolder(), "playerinfo.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 
         //ici on charge le dosseier Team.yml
 
         // Supprimer juste les entrées obsolètes
-        ConfigurationSection teamSection = config.getConfigurationSection("teams");
+        ConfigurationSection teamSection = config.getConfigurationSection("team");
         //ici on veut que ça retourn la section team de teams.yml
 
         if (teamSection != null) {
@@ -239,7 +239,7 @@ public class SaveManager {
 
                 if (!teams.containsKey(uuid)) {
                     //on vérifie si le uuid c'est fait GETOUT du de la team si oui la supprimer
-                    config.set("teams." + key, null); // Supprime uniquement ceux absents de la HashMap
+                    config.set("team." + key, null); // Supprime uniquement ceux absents de la HashMap
                 }
             }
         }
@@ -249,7 +249,7 @@ public class SaveManager {
 
             //la la boucle va recupérer tout les truc que on a mis a parametre dans cette boucle
             //et va lajouter dans le fichier teams
-            config.set("teams." + entry.getKey().toString(), entry.getValue());
+            config.set("team." + entry.getKey().toString(), entry.getValue());
         }
 
         try {

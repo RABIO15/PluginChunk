@@ -51,10 +51,19 @@ public class ClaimManager implements Listener {
 
 
 
-        if(power >= 5) {
+        if(power >= 5) {  
 
 
-            if (!isChunkAlreadyClaimed(ChunkX, ChunkZ) || information_Chunk.isChunkClaimedParQuelquUn_Team(ChunkX, ChunkZ,player)) {
+
+            if(information_Chunk.isChunkClaimedParQuelquUn_Team(ChunkX, ChunkZ,player)){
+
+                player.sendMessage("CXHATTTTT=" );
+            }
+
+
+
+
+            if (!isChunkAlreadyClaimed(ChunkX, ChunkZ) && !information_Chunk.isChunkClaimedParQuelquUn_Team(ChunkX, ChunkZ,player)) {
 
 
 
@@ -63,7 +72,7 @@ public class ClaimManager implements Listener {
                     information_Chunk.addClaimedChunk(player, ChunkX, ChunkZ);
 
 
-                    player.sendMessage("Vous venez claim ce chunk !!!");
+
                     player.sendMessage("Tu es dans le chunk X=" + ChunkX + ", Z=" + ChunkZ);
 
                     manage_power.RemovePower(player, 5);
@@ -115,6 +124,7 @@ public class ClaimManager implements Listener {
 
 
           if (!manage_power.ContainTeam_Other_Version(player)) {
+
               information_Chunk.RemoveClaimedChunk(player, ChunkX, ChunkZ);
 
               player.sendMessage("Vous venez de unclaim la zone ! le Chun x est " + ChunkX + "Chunk Z est :" + ChunkZ);

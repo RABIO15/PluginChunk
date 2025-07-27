@@ -39,16 +39,16 @@ public class TeamManager  {
     public String getTeamDuJoueur(Player player) {
 
 
-        Load_HashMapTeam();
+        //Load_HashMapTeam();
 
-        File file = new File(main.getDataFolder(), "teams.yml");
+        File file = new File(main.getDataFolder(), "playerinfo.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 
 
         //en gros j'ai mis nom parce que quand le truc sauvegarde il sauvegarde la entryset donc le nom de la team
         //donc j'ai fait en sorte de faire retourner le truc nom comme ça le truc va dans team puis player puis nom de la team
 
-        return config.getString("teams." + player.getUniqueId(), null);
+        return config.getString("team." + player.getUniqueId(), null);
 
 
 
@@ -106,7 +106,7 @@ public class TeamManager  {
 
     public void Team_invite_set(Player player,int invite){
 
-        save.set_Sauvegarde_Int(player,"teams.yml","invite",invite);
+        save.set_Sauvegarde_Int(player,"team.yml","invite",invite);
 
     }
 
@@ -117,11 +117,11 @@ public class TeamManager  {
 
 
 
-        if (config.contains("teams")) {
-            for (String uuidStr : config.getConfigurationSection("teams").getKeys(false)) {
+        if (config.contains("team")) {
+            for (String uuidStr : config.getConfigurationSection("team").getKeys(false)) {
                 try {
                     UUID uuid = UUID.fromString(uuidStr);
-                    String teamName = config.getString("teams." + uuidStr);
+                    String teamName = config.getString("team." + uuidStr);
                     Team.put(uuid, teamName);
                 } catch (IllegalArgumentException e) {
                     e.printStackTrace(); // UUID mal formé, au cas où
