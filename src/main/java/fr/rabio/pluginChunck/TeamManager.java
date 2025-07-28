@@ -73,7 +73,7 @@ public class TeamManager  {
 
         if(getTeamDuJoueur(player) == null){
 
-            player.sendMessage("NULL GERMAIN NULLL ");
+            return true;
         }
 
 

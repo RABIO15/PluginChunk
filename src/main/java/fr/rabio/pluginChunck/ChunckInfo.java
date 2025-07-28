@@ -78,7 +78,7 @@ public class ChunckInfo {
     }
 
 
-    public void addClaimedChunkPower(Player player, int chunkX, int chunkZ,int power){
+    public void addClaimedChunkPower( int chunkX, int chunkZ,int power){
 
 
 
@@ -88,19 +88,21 @@ public class ChunckInfo {
             YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 
             String chunkCoord = chunkX + ";" + chunkZ;
-            String uuidPath = "players." + player.getUniqueId();
+            String uuidPath = "players." ;
             String chunkListPath = uuidPath + ".claimed_chunks";
             String chunkPowerPath = uuidPath + ".chunk_power." + chunkCoord;
 
             // Ajouter à la liste s'il n'est pas déjà là
             List<String> claimedChunks = config.getStringList(chunkListPath);
             if (!claimedChunks.contains(chunkCoord)) {
+
                 claimedChunks.add(chunkCoord);
                 config.set(chunkListPath, claimedChunks);
+                // Enregistrer le power pour ce chunk
+                config.set(chunkPowerPath, power);
             }
 
-            // Enregistrer le power pour ce chunk
-            config.set(chunkPowerPath, power);
+
 
             try {
                 config.save(file);
@@ -115,12 +117,12 @@ public class ChunckInfo {
 
 
 
-    public void removeClaimedChunk(Player player, int chunkX, int chunkZ) {
+    public void removeClaimedChunk_power( int chunkX, int chunkZ) {
         File file = new File(main.getDataFolder(), "InformationChunck.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 
         String chunkCoord = chunkX + ";" + chunkZ;
-        String uuidPath = "players." + player.getUniqueId();
+        String uuidPath = "players.";
         String chunkListPath = uuidPath + ".claimed_chunks";
         String chunkPowerPath = uuidPath + ".chunk_power." + chunkCoord;
 
@@ -148,12 +150,13 @@ public class ChunckInfo {
 
 
 
-    public int getChunkPower(Player player, int chunkX, int chunkZ) {
+    public int getChunkPower( int chunkX, int chunkZ) {
         File file = new File(main.getDataFolder(), "InformationChunck.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 
-        String chunkCoord = chunkX + ";" + chunkZ;
-        String path = "players." + player.getUniqueId() + ".chunk_power." + chunkCoord;
+        String chunkCoord = chunkX + ";" + chunkZ; //attention a ne
+        // pas mettree player car il faut celui qui la fauit pas le joueurn qui execute la commande
+        String path = "players." + ".chunk_power." + chunkCoord;
 
 
         return config.getInt(path, 0); // 0 si non trouvé
@@ -167,7 +170,7 @@ public class ChunckInfo {
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 
         String chunkCoord = chunkX + ";" + chunkZ;
-        String uuidPath = "players." + player.getUniqueId();
+        String uuidPath = "players.";
 
         String chunkPowerPath = uuidPath + ".chunk_power." + chunkCoord;
 
@@ -284,7 +287,7 @@ public class ChunckInfo {
 
 
 
-    public boolean isChunkClaimedParQuelquUn_Team(int chunkX, int chunkZ,Player player ) {
+    public boolean isChunkClaimedParQuelquUn_Team(int chunkX, int chunkZ ) {
         File file = new File(main.getDataFolder(), "Teams.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 
