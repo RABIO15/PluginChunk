@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class CommandManager  implements CommandExecutor {
 
     public PluginChunck main;
+    int power_add = 0;
 
 
 
@@ -195,27 +196,56 @@ public class CommandManager  implements CommandExecutor {
                 player.sendMessage("§5 Vous venez de exucuter la comande Claim !");
                 ClaimManager claim = new ClaimManager(main);
 
-                if(args[0] != null) {
+                player.sendMessage("§4 TEST1");
 
+                if (args.length >= 1) {
+
+                    player.sendMessage("§4 TEST2");
                     try {
-                        int power_add = Integer.parseInt(args[1]);
 
 
-                        player.sendMessage("§2 Vous venez de  ajoutez  : " + power_add + " §2 power au chunk ");
+                        player.sendMessage("§4 TEST3");
+
+                        player.sendMessage("§2 Vous venez de   ajoutez  : " + power_add + " §2 power au chunk ");
                         player.sendMessage("§7 Il ne vous restes que : " + manage_power.GetPowerPlayer(player) + " §7 power");
 
+
+
+                        power_add += Integer.parseInt(args[0]);
+                        player.sendMessage("§4 L'ajout est de : "+  power_add);
+                        player.sendMessage("§2 L'ajout est de : "+  args[0]);
+
                         claim.Claim(player,power_add);
+
+                        power_add = 0;
 
 
                     } catch (NumberFormatException e) {
 
+                        player.sendMessage("§4 TEST4");
                         player.sendMessage(" TU DOIS METTRE UN CHIFFRE !");
                     }
-                    claim.Claim(player,0);
+
 
 
                     return true;
+                }else {
+
+                    player.sendMessage("§4 TEST5");
+                    player.sendMessage("§8 On essaye un truc");
+                    power_add = 0;
+
+                    claim.Claim(player,power_add);
+                    player.sendMessage("§8 cela a  marcher ?");
+
+
+
+
+
                 }
+
+                player.sendMessage("§4 TEST6");
+                return true;
             }
 
 

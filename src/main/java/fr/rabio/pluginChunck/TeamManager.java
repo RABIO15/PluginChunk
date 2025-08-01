@@ -73,7 +73,7 @@ public class TeamManager  {
 
         if(getTeamDuJoueur(player) == null){
 
-            return true;
+            return false;
         }
 
 

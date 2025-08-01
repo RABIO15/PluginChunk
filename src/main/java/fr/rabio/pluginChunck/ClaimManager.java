@@ -59,17 +59,33 @@ public class ClaimManager implements Listener {
 
 
             if (!isChunkAlreadyClaimed(ChunkX, ChunkZ) && !information_Chunk.isChunkClaimedParQuelquUn_Team(ChunkX, ChunkZ)) {
+                player.sendMessage("§7 Youppie  "  );
+                    if(ajout <= 0) {
+                        player.sendMessage("§7 l'ajout est de  " + ajout );
 
 
-                    claim_claim(player,ChunkX, ChunkZ);
+                        claim_claim(player, ChunkX, ChunkZ);
+
+
+                    }else{
+
+                        player.sendMessage("§4 l'ajout est de  " + ajout );
+
+                        information_Chunk.addClaimedChunkPower(ChunkX, ChunkZ,ajout);
+                        claim_claim(player, ChunkX, ChunkZ);
+
+
+                    }
 
 
             }else {
 
+                player.sendMessage("§7 Youpp&&&  "  );
+
                 if(information_Chunk.isChunkClaimedParQuelquUn(ChunkX, ChunkZ) || information_Chunk.isChunkClaimedParQuelquUn_Team(ChunkX, ChunkZ)){
 
 
-
+                    player.sendMessage("§5Testasouille claimanager 1 ");
 
                     int power_ennemy = information_Chunk.getChunkPower(ChunkX, ChunkZ);
 
@@ -78,7 +94,8 @@ public class ClaimManager implements Listener {
 
                     if(power_ennemy <= 0){
 
-                        claim_claim(player,ChunkX, ChunkZ);
+                        information_Chunk.addClaimedChunkPower(ChunkX, ChunkZ,ajout);
+                        player.sendMessage("§2 Cela à été claim car le power de l'ennmie et trop faible son claim était de + " +"§7" +power_ennemy);
 
 
                     } else if (power_ennemy <= ajout) {
@@ -88,7 +105,7 @@ public class ClaimManager implements Listener {
                         manage_power.RemovePower(player, ajout);
 
 
-                    } else if (power_ennemy > ajout) {
+                    } else  {
 
 
                         player.sendMessage("§4 Vous ne pouvez pas claim ce chun car il est déjà claim et que vous n'avez pas assez de power !!");

@@ -90,7 +90,7 @@ public class ChunckInfo {
             String chunkCoord = chunkX + ";" + chunkZ;
             String uuidPath = "players." ;
             String chunkListPath = uuidPath + ".claimed_chunks";
-            String chunkPowerPath = uuidPath + ".chunk_power." + chunkCoord;
+            String chunkPowerPath = uuidPath + ".chunk_power"+ "." + chunkCoord;
 
             // Ajouter à la liste s'il n'est pas déjà là
             List<String> claimedChunks = config.getStringList(chunkListPath);
@@ -156,7 +156,7 @@ public class ChunckInfo {
 
         String chunkCoord = chunkX + ";" + chunkZ; //attention a ne
         // pas mettree player car il faut celui qui la fauit pas le joueurn qui execute la commande
-        String path = "players." + ".chunk_power." + chunkCoord;
+        String path = "players." + ".chunk_power" +"."+ chunkCoord;
 
 
         return config.getInt(path, 0); // 0 si non trouvé
