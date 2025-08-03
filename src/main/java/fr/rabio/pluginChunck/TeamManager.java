@@ -64,7 +64,7 @@ public class TeamManager  {
             player.sendMessage("Vous êtes dans une team bravo !");
             return true;
 
-        }else{
+        }else{  
 
             player.sendMessage("Vous n'êtes dans aucune team ");
 
