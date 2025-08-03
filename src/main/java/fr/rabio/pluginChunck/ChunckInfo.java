@@ -99,9 +99,9 @@ public class ChunckInfo {
                 claimedChunks.add(chunkCoord);
                 config.set(chunkListPath, claimedChunks);
                 // Enregistrer le power pour ce chunk
-                config.set(chunkPowerPath, power);
-            }
 
+            }
+              config.set(chunkPowerPath, power);
 
 
             try {

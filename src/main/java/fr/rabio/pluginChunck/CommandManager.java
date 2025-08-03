@@ -196,24 +196,26 @@ public class CommandManager  implements CommandExecutor {
                 player.sendMessage("§5 Vous venez de exucuter la comande Claim !");
                 ClaimManager claim = new ClaimManager(main);
 
-                player.sendMessage("§4 TEST1");
+
 
                 if (args.length >= 1) {
 
-                    player.sendMessage("§4 TEST2");
+
                     try {
 
 
-                        player.sendMessage("§4 TEST3");
+
+
+
+
+                        power_add += Integer.parseInt(args[0]);
+                        player.sendMessage("§4 L'ajout est de : "+  power_add);
 
                         player.sendMessage("§2 Vous venez de   ajoutez  : " + power_add + " §2 power au chunk ");
                         player.sendMessage("§7 Il ne vous restes que : " + manage_power.GetPowerPlayer(player) + " §7 power");
 
 
 
-                        power_add += Integer.parseInt(args[0]);
-                        player.sendMessage("§4 L'ajout est de : "+  power_add);
-                        player.sendMessage("§2 L'ajout est de : "+  args[0]);
 
                         claim.Claim(player,power_add);
 
@@ -251,13 +253,16 @@ public class CommandManager  implements CommandExecutor {
 
 
             if(label.equals("unclaim")) {
+
+
                 player.sendMessage("§2 Vous venez de exucuter la comande Unclaim !");
                 ClaimManager claim = new ClaimManager(main);
 
-
-
-
                 claim.UnClaim(player);
+
+
+
+
                 return true;
 
             }

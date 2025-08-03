@@ -80,12 +80,12 @@ public class ClaimManager implements Listener {
 
             }else {
 
-                player.sendMessage("§7 Youpp&&&  "  );
+
 
                 if(information_Chunk.isChunkClaimedParQuelquUn(ChunkX, ChunkZ) || information_Chunk.isChunkClaimedParQuelquUn_Team(ChunkX, ChunkZ)){
 
 
-                    player.sendMessage("§5Testasouille claimanager 1 ");
+
 
                     int power_ennemy = information_Chunk.getChunkPower(ChunkX, ChunkZ);
 
@@ -102,6 +102,9 @@ public class ClaimManager implements Listener {
                        information_Chunk.addClaimedChunkPower(ChunkX, ChunkZ,ajout);
 
                         player.sendMessage("§2 Bravo vous venez de reclaim sur quelqu'un");
+                        player.sendMessage("§2 vous venez de ajoutez "+ ajout);
+
+
                         manage_power.RemovePower(player, ajout);
 
 
@@ -153,39 +156,64 @@ public class ClaimManager implements Listener {
         int ChunkX = chunk.getX();
         int ChunkZ = chunk.getZ();
 
-      if(isChunkAlreadyClaimed(ChunkX, ChunkZ) || information_Chunk.isChunkClaimedParQuelquUn_Team(ChunkX, ChunkZ)){
+      if(isChunkAlreadyClaimed(ChunkX, ChunkZ) || information_Chunk.isChunkClaimedParQuelquUn_Team(ChunkX, ChunkZ)) {
+
+          int power_energi = information_Chunk.getChunkPower(ChunkX, ChunkZ);
+
+       if(information_Chunk.OwnChunk(player,ChunkX,ChunkZ)){
+          if (power_energi <= 0) {
 
 
-          if (!manage_power.ContainTeam_Other_Version(player)) {
+              if (!manage_power.ContainTeam_Other_Version(player)) {
 
-              information_Chunk.RemoveClaimedChunk(player, ChunkX, ChunkZ);
+                  information_Chunk.RemoveClaimedChunk(player, ChunkX, ChunkZ);
 
-              player.sendMessage("Vous venez de unclaim la zone ! le Chun x est " + ChunkX + "Chunk Z est :" + ChunkZ);
+                  player.sendMessage("Vous venez de unclaim la zone ! le Chun x est " + ChunkX + "Chunk Z est :" + ChunkZ);
 
-              manage_power.AddPower(player, 5);
+                  manage_power.AddPower(player, 5);
 
-              player.sendMessage("§2 +5 de power votre power actuel est de " + manage_power.GetPowerPlayer(player));
-          }else {
+                  player.sendMessage("§2 +5 de power votre power actuel est de " + manage_power.GetPowerPlayer(player));
+              } else {
 
 
-              player.sendMessage("Vous êtes dans une team !");
+                  player.sendMessage("Vous êtes dans une team !");
 
-              information_Chunk.RemoveClaimedChunkTeam(player, ChunkX, ChunkZ);
+                  information_Chunk.RemoveClaimedChunkTeam(player, ChunkX, ChunkZ);
 
-              player.sendMessage("Votre team à Unclaim ce chunk !!!");
-              player.sendMessage("Tu es dans le chunk X=" + ChunkX + ", Z=" + ChunkZ);
+                  player.sendMessage("Votre team à Unclaim ce chunk !!!");
+                  player.sendMessage("Tu es dans le chunk X=" + ChunkX + ", Z=" + ChunkZ);
 
-              manage_power.AddPower(player, 5);
+                  manage_power.AddPower(player, 5);
 
-              player.sendMessage("§2 + 5 de power votre power actuel est de " + manage_power.GetPowerPlayer(player));
+                  player.sendMessage("§2 + 5 de power votre power actuel est de " + manage_power.GetPowerPlayer(player));
+
+
+              }
+          }
+
+          } else {
+
+
+
+           player.sendMessage("§4 Ce chunk ne vous impartient pas vous ne pouvez donc pas le claim ! ");
+
+
+
+
+
+
+
+
+
+
+
+
 
 
           }
 
 
-
-      }else {
-
+      }else{
 
           if (!isChunkAlreadyClaimed(ChunkX, ChunkZ)) {
               player.sendMessage("Ce chunk n'est pas claim  ");
@@ -196,6 +224,7 @@ public class ClaimManager implements Listener {
 
 
       }
+
 
 
     }
