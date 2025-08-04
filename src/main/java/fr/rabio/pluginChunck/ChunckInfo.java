@@ -18,14 +18,18 @@ public class ChunckInfo {
     PluginChunck main;
     private SaveManager savemanager;
     private TeamManager teams;
-
+    private ClaimManager claim_manager;
 
 
     public ChunckInfo(PluginChunck main) {
 
         this.main = main;
         this.savemanager = new SaveManager(main); // ici main est bien initialisé
-        this.teams = new TeamManager(main);       // idem
+        this.teams = new TeamManager(main);
+
+
+
+        // idem
     }
 
 
@@ -78,11 +82,15 @@ public class ChunckInfo {
     }
 
 
-    public void addClaimedChunkPower( int chunkX, int chunkZ,int power){
+    public void addClaimedChunkPower(Player player , int chunkX, int chunkZ,int power){
 
 
 
+                if(!teams.ContainTeam_Other_Version(player)){
+                    player.sendMessage("Vous n'êtes dans aucune team et vous faites un claim");
+                    addClaimedChunk(player, chunkX, chunkZ);
 
+                }
 
             File file = new File(main.getDataFolder(), "InformationChunck.yml");
             YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
@@ -90,12 +98,17 @@ public class ChunckInfo {
             String chunkCoord = chunkX + ";" + chunkZ;
             String uuidPath = "players." ;
             String chunkListPath = uuidPath + ".claimed_chunks";
-            String chunkPowerPath = uuidPath + ".chunk_power"+ "." + chunkCoord;
 
+
+            String chunkPowerPath = uuidPath + ".chunk_power"+ "." + chunkCoord;
+            player.sendMessage("test 1");
             // Ajouter à la liste s'il n'est pas déjà là
             List<String> claimedChunks = config.getStringList(chunkListPath);
-            if (!claimedChunks.contains(chunkCoord)) {
 
+
+
+            if (!claimedChunks.contains(chunkCoord)) {
+                player.sendMessage("test 2");
                 claimedChunks.add(chunkCoord);
                 config.set(chunkListPath, claimedChunks);
                 // Enregistrer le power pour ce chunk
@@ -111,7 +124,7 @@ public class ChunckInfo {
             }
 
 
-
+        player.sendMessage("test 3");
 
     }
 

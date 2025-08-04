@@ -91,7 +91,7 @@ public class CommandManager  implements CommandExecutor {
 
 
 
-              //  if (validation == 1) {
+
 
 
 

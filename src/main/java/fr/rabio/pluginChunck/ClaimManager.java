@@ -59,7 +59,7 @@ public class ClaimManager implements Listener {
 
 
             if (!isChunkAlreadyClaimed(ChunkX, ChunkZ) && !information_Chunk.isChunkClaimedParQuelquUn_Team(ChunkX, ChunkZ)) {
-                player.sendMessage("§7 Youppie  "  );
+
                     if(ajout <= 0) {
                         player.sendMessage("§7 l'ajout est de  " + ajout );
 
@@ -71,7 +71,7 @@ public class ClaimManager implements Listener {
 
                         player.sendMessage("§4 l'ajout est de  " + ajout );
 
-                        information_Chunk.addClaimedChunkPower(ChunkX, ChunkZ,ajout);
+                        information_Chunk.addClaimedChunkPower(player,ChunkX, ChunkZ,ajout);
                         claim_claim(player, ChunkX, ChunkZ);
 
 
@@ -94,12 +94,13 @@ public class ClaimManager implements Listener {
 
                     if(power_ennemy <= 0){
 
-                        information_Chunk.addClaimedChunkPower(ChunkX, ChunkZ,ajout);
-                        player.sendMessage("§2 Cela à été claim car le power de l'ennmie et trop faible son claim était de + " +"§7" +power_ennemy);
+                           information_Chunk.addClaimedChunkPower(player, ChunkX, ChunkZ, ajout);
+                           player.sendMessage("§2 Cela à été claim car le power de l'ennmie et trop faible son claim était de + " + "§7" + power_ennemy);
 
 
                     } else if (power_ennemy <= ajout) {
-                       information_Chunk.addClaimedChunkPower(ChunkX, ChunkZ,ajout);
+
+                       information_Chunk.addClaimedChunkPower(player,ChunkX, ChunkZ,ajout);
 
                         player.sendMessage("§2 Bravo vous venez de reclaim sur quelqu'un");
                         player.sendMessage("§2 vous venez de ajoutez "+ ajout);
@@ -111,7 +112,7 @@ public class ClaimManager implements Listener {
                     } else  {
 
 
-                        player.sendMessage("§4 Vous ne pouvez pas claim ce chun car il est déjà claim et que vous n'avez pas assez de power !!");
+                        player.sendMessage("§4 Vous ne pouvez pas claim ce chunk car il est déjà claim et que vous n'avez pas assez de power !!");
 
 
 
@@ -299,6 +300,8 @@ public class ClaimManager implements Listener {
 
 
             if (infoteams.ContainTeam_Other_Version(player)) {
+
+                player.sendMessage("§2 BIDOUILLE 1");
                 if(!infobreak.OwnChunkTeam(player, ChunkX, ChunkZ)){
                     player.sendMessage("§2Vous ne pouvez pas casser dans ce chunk car il est déjà claim par une team");
                     event.setCancelled(true);
