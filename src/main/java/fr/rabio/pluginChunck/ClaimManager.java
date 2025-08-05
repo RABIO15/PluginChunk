@@ -296,29 +296,51 @@ public class ClaimManager implements Listener {
         TeamManager infoteams = new TeamManager(main);
 
 
-        if(infobreak.isChunkClaimedParQuelquUn(ChunkX,ChunkZ)) {
+        if(infobreak.isChunkClaimedParQuelquUn(ChunkX,ChunkZ) || infobreak.isChunkClaimedParQuelquUn_Team(ChunkX,ChunkZ)) {
+            player.sendMessage("§2 BIDOUILLE 00");
 
 
-            if (infoteams.ContainTeam_Other_Version(player)) {
 
-                player.sendMessage("§2 BIDOUILLE 1");
-                if(!infobreak.OwnChunkTeam(player, ChunkX, ChunkZ)){
-                    player.sendMessage("§2Vous ne pouvez pas casser dans ce chunk car il est déjà claim par une team");
+
+
+                if (!infobreak.OwnChunk(player, ChunkX, ChunkZ) && !infoteams.ContainTeam_Other_Version(player)) {
+
+
+                    player.sendMessage("§4 Vous ne pouvez pas casser dans ce chunk car il est déjà claim");
                     event.setCancelled(true);
+
+                }else{
+                    if(infoteams.ContainTeam_Other_Version(player)){
+
+
+                        if(!infobreak.OwnChunkTeam(player, ChunkX, ChunkZ)){
+                            player.sendMessage("§2Vous ne pouvez pas casser dans ce chunk car il est déjà claim par une team");
+                            event.setCancelled(true);
+
+                        }
+
+
+                    }
+
+
 
                 }
 
 
-            } else {
 
-                if (!infobreak.OwnChunk(player, ChunkX, ChunkZ)) {
+        }else{
 
-
-                    player.sendMessage("§4 Vous ne pouvez pas casser dans ce chunk car il est déjà claim par quelq'un");
-                    event.setCancelled(true);
-                }
+            if(infobreak.isChunkClaimedParQuelquUn(ChunkX,ChunkZ) ){
+                player.sendMessage("§4 CLAIM PAR QUELQU'UN");
 
             }
+
+            if(infobreak.isChunkClaimedParQuelquUn_Team(ChunkX,ChunkZ)){
+
+                player.sendMessage("§4 CLAIM PAR UNE TEAM");
+
+            }
+
 
         }
 
@@ -338,27 +360,55 @@ public class ClaimManager implements Listener {
         ChunckInfo infobreak = new ChunckInfo(main);
         TeamManager infoteams = new TeamManager(main);
 
-        if(infobreak.isChunkClaimedParQuelquUn(ChunkX,ChunkZ)) {
+        if(infobreak.isChunkClaimedParQuelquUn(ChunkX,ChunkZ) || infobreak.isChunkClaimedParQuelquUn_Team(ChunkX,ChunkZ)) {
+            player.sendMessage("§2 BIDOUILLE 00");
 
 
-            if (infoteams.ContainTeam_Other_Version(player)) {
-                if(!infobreak.OwnChunkTeam(player, ChunkX, ChunkZ)){
-                    player.sendMessage("§2Vous ne pouvez pas construire dans ce chunk car il est déjà claim par une team");
-                    event.setCancelled(true);
 
+
+
+            if (!infobreak.OwnChunk(player, ChunkX, ChunkZ) && !infoteams.ContainTeam_Other_Version(player)) {
+
+
+                player.sendMessage("§4 Vous ne pouvez pas casser dans ce chunk car il est déjà claim");
+                event.setCancelled(true);
+
+            }else{
+                if(infoteams.ContainTeam_Other_Version(player)){
+                    player.sendMessage("§2 HAOYY");
+
+                    if(!infobreak.OwnChunkTeam(player, ChunkX, ChunkZ)){
+                        player.sendMessage("§2Vous ne pouvez pas casser dans ce chunk car il est déjà claim par une team");
+                        event.setCancelled(true);
+
+                    }else{
+
+                        player.sendMessage("§1 YAAAAA");
+                    }
+
+
+                } else if (!infobreak.OwnChunk(player, ChunkX, ChunkZ)) {
+                    player.sendMessage("§4 YAAAAA");
                 }
 
-
-            } else {
-
-                if (!infobreak.OwnChunk(player, ChunkX, ChunkZ)) {
-
-
-                    player.sendMessage("§4 Vous ne pouvez pas construire dans ce chunk car il est déjà claim par quelq'un");
-                    event.setCancelled(true);
-                }
 
             }
+
+
+
+        }else{
+
+            if(infobreak.isChunkClaimedParQuelquUn(ChunkX,ChunkZ) ){
+                player.sendMessage("§4 CLAIM PAR QUELQU'UN");
+
+            }
+
+            if(infobreak.isChunkClaimedParQuelquUn_Team(ChunkX,ChunkZ)){
+
+                player.sendMessage("§4 CLAIM PAR UNE TEAM");
+
+            }
+
 
         }
 

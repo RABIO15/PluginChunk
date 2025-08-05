@@ -64,22 +64,17 @@ public class TeamManager  {
             player.sendMessage("Vous êtes dans une team bravo !");
             return true;
 
-        }else{  
+        }else {
 
-            player.sendMessage("Vous n'êtes dans aucune team ");
+            player.sendMessage("§4Vous n'êtes dans aucune  team  GET OUTT!");
 
-
-        }
-
-        if(getTeamDuJoueur(player) == null){
-
-            return false;
-        }
+                return false;
+            }
 
 
 
 
-        return false;
+
 
 
 

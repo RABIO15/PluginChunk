@@ -225,7 +225,7 @@ public class ChunckInfo {
         String chunkCoord = chunkX + ";" + chunkZ;
         if (chunks.contains(chunkCoord)) {
 
-
+          player.sendMessage("happy happy");
             return true;
 
         }

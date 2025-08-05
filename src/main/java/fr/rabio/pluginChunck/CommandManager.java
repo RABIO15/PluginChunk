@@ -28,6 +28,8 @@ public class CommandManager  implements CommandExecutor {
             Player player = (Player) sender;
             TeamManager manage_power = new TeamManager(main);
             TeamManager teams = new TeamManager(main);
+            ChunckInfo infobreak = new ChunckInfo(main);
+
 
         if(label.equals("invite")) {
 
@@ -199,6 +201,8 @@ public class CommandManager  implements CommandExecutor {
 
 
                 if (args.length >= 1) {
+
+
 
 
                     try {
