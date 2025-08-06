@@ -91,32 +91,52 @@ public class CommandManager  implements CommandExecutor {
 
                 Player Other_player = (Player) sender;
 
+                if (args.length >= 1) {
+
+                if (args[0].equalsIgnoreCase("refuse")) {
+
+                    player.sendMessage("Le joueur a refuser la propositions  !");
+                    return true;
+                }
 
 
+                if (args[0].equalsIgnoreCase("create")) {
+                    int power  = manage_power.GetPowerPlayer(player);
 
 
+                    if (args.length >= 2) {
 
 
-                    if (args[0].equalsIgnoreCase("refuse")) {
+                        if (power >= 35) {
+                            manage_power.RemovePower(player, 35);
+                            manage_power.Create_Team(player,args[2]);
 
-                        player.sendMessage("Le joueur a refuser la propositions  !");
-                        return true;
+                            return true;
+                        } else {
+
+
+                            player.sendMessage("Pour pouvoir crée une team vous devez avoir 35 de power minimum vous en avez que :" + power);
+
+                        }
+
                     }
+                    return true;
+                }
 
 
-                    if (args[0].equalsIgnoreCase("accept")) {
+                if (args[0].equalsIgnoreCase("accept")) {
 
 
-                        player.sendMessage("Le joueur a accepter  la propositions !");
-                        String teamplayer = teams.getTeamDuJoueur(player);
+                    player.sendMessage("Le joueur a accepter  la propositions !");
+                    String teamplayer = teams.getTeamDuJoueur(player);
 
 
-                        teams.SetTeamJoueur(Other_player.getUniqueId(), teamplayer);
+                    teams.SetTeamJoueur(Other_player.getUniqueId(), teamplayer);
 
-                        Other_player.sendMessage("Vous avez accepter la propositions");
+                    Other_player.sendMessage("Vous avez accepter la propositions");
 
-                        return true;
-                    }
+                    return true;
+                }
 
 
               /*  } else {
@@ -126,11 +146,11 @@ public class CommandManager  implements CommandExecutor {
                 }
 */
 
-                if(args[0].equalsIgnoreCase("add")){
+                if (args[0].equalsIgnoreCase("add")) {
 
                     Other_player.sendMessage("§2 Vous venez de vous ajoutez dans une team!");
 
-                    teams.SetTeamJoueur(Other_player.getUniqueId(),args[1]);
+                    teams.SetTeamJoueur(Other_player.getUniqueId(), args[1]);
                     Other_player.sendMessage("§3 Vous êtes desormais dans la teams : " + args[1]);
 
 
@@ -138,10 +158,9 @@ public class CommandManager  implements CommandExecutor {
 
                 }
 
-                if(args[0].equalsIgnoreCase("info")){
+                if (args[0].equalsIgnoreCase("info")) {
 
                     Other_player.sendMessage("Votre team est : " + teams.getTeamDuJoueur(Other_player));
-
 
 
                     return true;
@@ -149,46 +168,40 @@ public class CommandManager  implements CommandExecutor {
                 }
 
 
-                if(args[0].equalsIgnoreCase("verif")){
+                if (args[0].equalsIgnoreCase("verif")) {
 
 
-                    if(teams.ContainTeam_Other_Version(player)){
+                    if (teams.ContainTeam_Other_Version(player)) {
 
                         Other_player.sendMessage("§2Felicitation vous êtes dans une Team");
 
-                    }else {
+                    } else {
                         Other_player.sendMessage("§4Vous n'êtes dans aucune team :(");
 
 
                     }
 
 
-
                     return true;
 
                 }
-
-
-
-
-
 
 
                 if (args[0].equalsIgnoreCase("remove")) {
 
                     Other_player.sendMessage("§2 Vous venez de vous retirer d'une team!");
 
-                    Other_player.sendMessage("§3 Vous avez quittez la team : " + teams.getTeamDuJoueur(Other_player) );
+                    Other_player.sendMessage("§3 Vous avez quittez la team : " + teams.getTeamDuJoueur(Other_player));
 
                     teams.RemovePlayerTeam(Other_player.getUniqueId());
-
-
 
 
                     return true;
 
                 }
+                return true;
 
+            }
 
                 return true;
 

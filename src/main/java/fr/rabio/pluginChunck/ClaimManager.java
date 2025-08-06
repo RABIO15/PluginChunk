@@ -61,19 +61,21 @@ public class ClaimManager implements Listener {
             if (!isChunkAlreadyClaimed(ChunkX, ChunkZ) && !information_Chunk.isChunkClaimedParQuelquUn_Team(ChunkX, ChunkZ)) {
 
                     if(ajout <= 0) {
-                        player.sendMessage("§7 l'ajout est de  " + ajout );
 
 
                         claim_claim(player, ChunkX, ChunkZ);
 
 
                     }else{
+                        if(ajout >= 5 ) {
+                            player.sendMessage("§4 l'ajout est de  " + ajout);
 
-                        player.sendMessage("§4 l'ajout est de  " + ajout );
+                            information_Chunk.addClaimedChunkPower(player, ChunkX, ChunkZ, ajout);
+                            claim_claim(player, ChunkX, ChunkZ);
+                        }else{
+                            player.sendMessage("§4  Vous devez mettre au minimum 5 de power  " );
 
-                        information_Chunk.addClaimedChunkPower(player,ChunkX, ChunkZ,ajout);
-                        claim_claim(player, ChunkX, ChunkZ);
-
+                        }
 
                     }
 

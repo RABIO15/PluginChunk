@@ -4,10 +4,14 @@ package fr.rabio.pluginChunck;
 
 import java.io.File;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 import java.util.HashMap;
 
+import org.bukkit.ChatColor;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 public class TeamManager  {
@@ -53,6 +57,90 @@ public class TeamManager  {
 
 
     }
+
+    public void Create_Team(Player player, String name){
+
+        if(!ContainTeam_Other_Version(player)){
+            if(!SameNameTeam(name)){
+
+                SetTeamJoueur(player.getUniqueId(),name);
+                Set_Team_List(name);
+                player.sendMessage("§2 Felicitation Vous venez de crée votre team la team :" + ChatColor.GOLD +name);
+
+            }else{
+                player.sendMessage("§4Une team à déjà le même nom changer de nom");
+
+            }
+
+
+        }else{
+
+
+            player.sendMessage("§4Vous devez quitter votre team avant de crée votre team");
+            player.sendMessage("§2Vous êtes dans la team :" + getTeamDuJoueur(player));
+        }
+
+    }
+
+
+
+
+
+
+
+    public boolean SameNameTeam(String name) {
+        File file = new File(main.getDataFolder(), "TeamList.yml");
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+
+        if (!config.contains("team")) return false;
+
+        ConfigurationSection playersSection = config.getConfigurationSection("team");
+
+        String chunkcore = name;
+
+        for (String uuid : playersSection.getKeys(false)) {
+
+
+
+            List<String> claimedChunks = config.getStringList("team." + uuid );
+
+
+            if (claimedChunks.contains(chunkcore)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    public void Set_Team_List(String name) {
+        File file = new File(main.getDataFolder(), "TeamList.yml");
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+
+        ConfigurationSection TeamSection = config.getConfigurationSection("team");
+
+       config.set(String.valueOf(TeamSection),name);
+
+        try {
+            config.save(file);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
