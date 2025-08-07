@@ -64,6 +64,7 @@ public class TeamManager  {
             if(!SameNameTeam(name)){
 
                 SetTeamJoueur(player.getUniqueId(),name);
+
                 Set_Team_List(name);
                 player.sendMessage("§2 Felicitation Vous venez de crée votre team la team :" + ChatColor.GOLD +name);
 
@@ -92,20 +93,20 @@ public class TeamManager  {
         File file = new File(main.getDataFolder(), "TeamList.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 
-        if (!config.contains("team")) return false;
+
 
         ConfigurationSection playersSection = config.getConfigurationSection("team");
 
-        String chunkcore = name;
+
 
         for (String uuid : playersSection.getKeys(false)) {
 
 
 
-            List<String> claimedChunks = config.getStringList("team." + uuid );
+            List<String> claimedChunks = config.getStringList("team");
 
 
-            if (claimedChunks.contains(chunkcore)) {
+            if (claimedChunks.contains(name)) {
                 return true;
             }
         }
@@ -120,7 +121,7 @@ public class TeamManager  {
 
         ConfigurationSection TeamSection = config.getConfigurationSection("team");
 
-       config.set(String.valueOf(TeamSection),name);
+       config.set("team",name);
 
         try {
             config.save(file);

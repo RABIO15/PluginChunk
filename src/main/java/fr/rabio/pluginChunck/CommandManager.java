@@ -108,8 +108,13 @@ public class CommandManager  implements CommandExecutor {
 
 
                         if (power >= 35) {
+
                             manage_power.RemovePower(player, 35);
-                            manage_power.Create_Team(player,args[2]);
+
+
+                            manage_power.Create_Team(player,args[1]);
+
+
 
                             return true;
                         } else {
