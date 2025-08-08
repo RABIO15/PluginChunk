@@ -26,7 +26,7 @@ public PlayerManager(PluginChunck main){
 
     Player player =  event.getPlayer();
 
-    player.sendMessage("§6 Hey ton ip c'est : " + player.getAddress());
+
 
     if (!player.hasPlayedBefore()) {
 
@@ -42,7 +42,7 @@ public PlayerManager(PluginChunck main){
 
     }else{
 
-        player.sendMessage("§2 Bon retour par minous  ");
+        player.sendMessage("§2 Bon retour  ");
 
     }
 

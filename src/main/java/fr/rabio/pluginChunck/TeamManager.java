@@ -43,7 +43,7 @@ public class TeamManager  {
     public String getTeamDuJoueur(Player player) {
 
 
-        //Load_HashMapTeam();
+
 
         File file = new File(main.getDataFolder(), "playerinfo.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
@@ -61,17 +61,14 @@ public class TeamManager  {
     public void Create_Team(Player player, String name){
 
         if(!ContainTeam_Other_Version(player)){
-            if(!SameNameTeam(name)){
 
-                SetTeamJoueur(player.getUniqueId(),name);
 
-                Set_Team_List(name);
-                player.sendMessage("§2 Felicitation Vous venez de crée votre team la team :" + ChatColor.GOLD +name);
 
-            }else{
-                player.sendMessage("§4Une team à déjà le même nom changer de nom");
 
-            }
+                Set_Team_List(name,player);
+
+
+
 
 
         }else{
@@ -93,29 +90,12 @@ public class TeamManager  {
         File file = new File(main.getDataFolder(), "TeamList.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 
-
-
-        ConfigurationSection playersSection = config.getConfigurationSection("team");
-
-
-
-        for (String uuid : playersSection.getKeys(false)) {
-
-
-
-            List<String> claimedChunks = config.getStringList("team");
-
-
-            if (claimedChunks.contains(name)) {
-                return true;
-            }
-        }
-
-        return false;
+        List<String> teams = config.getStringList("team");
+        return teams.contains(name);
     }
 
 
-    public void Set_Team_List(String name) {
+   /* public void Set_Team_List(String name) {
         File file = new File(main.getDataFolder(), "TeamList.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 
@@ -129,6 +109,37 @@ public class TeamManager  {
             throw new RuntimeException(e);
         }
 
+
+    }
+*/
+
+
+    public void Set_Team_List(String name,Player player) {
+        File file = new File(main.getDataFolder(), "TeamList.yml");
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+
+        // On récupère la liste existante, ou une nouvelle si elle n'existe pas
+        List<String> teams = config.getStringList("team");
+
+        // On ajoute le nouveau nom si pas déjà présent
+        if (!teams.contains(name)) {
+            teams.add(name);
+            config.set("team", teams);
+            SetTeamJoueur(player.getUniqueId(),name);
+            player.sendMessage("§2 Felicitation Vous venez de crée votre team la team :" + ChatColor.GOLD +name);
+
+            try {
+                config.save(file);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }else{
+
+            player.sendMessage("§4 Ce nom de team est déjà prix !");
+
+        }
+
+        // On remet la liste dans le YAML
 
     }
 
@@ -244,6 +255,40 @@ public class TeamManager  {
 
 
     }
+
+    public void RemovePlayerTeam_Entier( int x, int z) {
+        File file = new File(main.getDataFolder(), "InformationChunck.yml");
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+
+        if (!config.contains("players")) {
+
+        }
+
+        ConfigurationSection playersSection = config.getConfigurationSection("players");
+
+        String chunkcore = x+ ";"+ z;
+
+        for (String uuid : playersSection.getKeys(false)) {
+
+
+
+            List<String> claimedChunks = config.getStringList("players." + uuid + ".claimed_chunks");
+
+
+            if (claimedChunks.contains(chunkcore)) {
+
+            }
+        }
+
+
+    }
+
+
+
+
+
+
+
 
 
 
