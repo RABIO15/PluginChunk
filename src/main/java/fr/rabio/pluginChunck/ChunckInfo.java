@@ -333,13 +333,18 @@ public class ChunckInfo {
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 
         String key = "players." + player.getUniqueId() + ".claimed_chunks";
+        String key2 = "players." + "claimed_chunks";
+        String key3 = "players." + "chunk_power";
+
         List<String> chunks = config.getStringList(key);
 
         String chunkCoord = chunkX + ";" + chunkZ;
         if (chunks.contains(chunkCoord)) {
             chunks.remove(chunkCoord);
-
+//permet de supprimer tous les chose a rapport avec le chunk conserner
             config.set(key, chunks);
+            config.set(key2, chunks);
+            config.set(key3, chunks);
 
             try {
                 config.save(file);
@@ -352,6 +357,7 @@ public class ChunckInfo {
 
 
     public void RemoveClaimedChunkTeam(Player player, int chunkX, int chunkZ) {
+
         File file = new File(main.getDataFolder(), "Teams.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 

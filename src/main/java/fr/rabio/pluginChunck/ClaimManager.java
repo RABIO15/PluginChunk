@@ -178,27 +178,30 @@ public class ClaimManager implements Listener {
                   player.sendMessage("§2 +5 de power votre power actuel est de " + manage_power.GetPowerPlayer(player));
               } else {
 
-
-                  player.sendMessage("Vous êtes dans une team !");
-
-                  information_Chunk.RemoveClaimedChunkTeam(player, ChunkX, ChunkZ);
-
-                  player.sendMessage("Votre team à Unclaim ce chunk !!!");
-                  player.sendMessage("Tu es dans le chunk X=" + ChunkX + ", Z=" + ChunkZ);
-
-                  manage_power.AddPower(player, 5);
-
-                  player.sendMessage("§2 + 5 de power votre power actuel est de " + manage_power.GetPowerPlayer(player));
+                  UnclaimChunnckTeam(player);
 
 
               }
           }
 
           } else {
+           if (!manage_power.ContainTeam_Other_Version(player)) {
+
+               player.sendMessage("§4 Ce chunk ne vous impartient pas vous ne pouvez donc pas le Unclaim ! ");
+           }else{
+
+                if(manage_power.IsFondateurTeam(player)){
+
+                    UnclaimChunnckTeam(player);
+
+                }
 
 
 
-           player.sendMessage("§4 Ce chunk ne vous impartient pas vous ne pouvez donc pas le claim ! ");
+           }
+
+
+
 
 
 
@@ -299,7 +302,7 @@ public class ClaimManager implements Listener {
 
 
         if(infobreak.isChunkClaimedParQuelquUn(ChunkX,ChunkZ) || infobreak.isChunkClaimedParQuelquUn_Team(ChunkX,ChunkZ)) {
-            player.sendMessage("§2 BIDOUILLE 00");
+
 
 
 
@@ -363,7 +366,7 @@ public class ClaimManager implements Listener {
         TeamManager infoteams = new TeamManager(main);
 
         if(infobreak.isChunkClaimedParQuelquUn(ChunkX,ChunkZ) || infobreak.isChunkClaimedParQuelquUn_Team(ChunkX,ChunkZ)) {
-            player.sendMessage("§2 BIDOUILLE 00");
+
 
 
 
@@ -461,7 +464,28 @@ public void claim_claim(Player player, int ChunkX,int ChunkZ){
 
 
 
-}
+} public void UnclaimChunnckTeam(Player player){
+
+        Chunk chunk = player.getLocation().getChunk();
+        int ChunkX = chunk.getX();
+        int ChunkZ = chunk.getZ();
+
+        player.sendMessage("Vous êtes dans une team !");
+
+        information_Chunk.RemoveClaimedChunk(player, ChunkX, ChunkZ);
+        information_Chunk.RemoveClaimedChunkTeam(player, ChunkX, ChunkZ);
+
+        player.sendMessage("Votre team à Unclaim ce chunk !!!");
+        player.sendMessage("Tu es dans le chunk X=" + ChunkX + ", Z=" + ChunkZ);
+
+        manage_power.AddPower(player, 5);
+
+        player.sendMessage("§2 + 5 de power votre power actuel est de " + manage_power.GetPowerPlayer(player));
+
+
+
+
+    }
 
 
 

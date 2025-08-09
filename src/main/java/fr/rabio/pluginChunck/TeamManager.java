@@ -81,6 +81,85 @@ public class TeamManager  {
     }
 
 
+    public void SetFondateurTeam(Player player){
+        File file = new File(main.getDataFolder(), "TeamList.yml");
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+
+        // On récupère la liste existante, ou une nouvelle si elle n'existe pas
+        List<String> teams = config.getStringList("FondateurTeam");
+        String Name_Player = player.getName();
+
+        // On ajoute le nouveau nom si pas déjà présent
+        if (!teams.contains(Name_Player)) {
+            teams.add(Name_Player);
+            config.set("TeamFondateur", teams);
+
+
+
+            try {
+                config.save(file);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }else{
+
+            player.sendMessage("§4 Ce nom de team est déjà prix !");
+
+        }
+
+
+    }
+
+    public void RemoveFondateurTeam(Player player){
+        File file = new File(main.getDataFolder(), "TeamList.yml");
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+
+        // On récupère la liste existante, ou une nouvelle si elle n'existe pas
+        List<String> teams = config.getStringList("FondateurTeam");
+
+        String Nom_team = getTeamDuJoueur(player);
+
+        // On ajoute le nouveau nom si pas déjà présent
+
+        teams.remove(Nom_team);
+        config.set("TeamFondateur", teams);
+        RemovePlayerTeam(player.getUniqueId());
+
+        try {
+            config.save(file);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+    }
+
+    public Boolean IsFondateurTeam(Player player){
+        File file = new File(main.getDataFolder(), "TeamList.yml");
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+
+        // On récupère la liste existante, ou une nouvelle si elle n'existe pas
+        List<String> teams = config.getStringList("FondateurTeam");
+        String Name_Player = player.getName();
+
+        // On ajoute le nouveau nom si pas déjà présent
+        if (teams.contains(Name_Player)) {
+
+            return true;
+
+
+
+        }
+
+
+
+
+    return false;
+    }
+
+
+
 
 
 
@@ -125,6 +204,9 @@ public class TeamManager  {
         if (!teams.contains(name)) {
             teams.add(name);
             config.set("team", teams);
+
+            SetFondateurTeam(player);
+
             SetTeamJoueur(player.getUniqueId(),name);
             player.sendMessage("§2 Felicitation Vous venez de crée votre team la team :" + ChatColor.GOLD +name);
 
@@ -138,6 +220,33 @@ public class TeamManager  {
             player.sendMessage("§4 Ce nom de team est déjà prix !");
 
         }
+
+        // On remet la liste dans le YAML
+
+    }
+
+
+    public void Remove_Team_List(Player player) {
+        File file = new File(main.getDataFolder(), "TeamList.yml");
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+
+        // On récupère la liste existante, ou une nouvelle si elle n'existe pas
+        List<String> teams = config.getStringList("team");
+
+        String Nom_team = getTeamDuJoueur(player);
+
+        // On ajoute le nouveau nom si pas déjà présent
+
+            teams.remove(Nom_team);
+            config.set("team", teams);
+            RemovePlayerTeam(player.getUniqueId());
+
+            try {
+                config.save(file);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
 
         // On remet la liste dans le YAML
 
@@ -256,32 +365,7 @@ public class TeamManager  {
 
     }
 
-    public void RemovePlayerTeam_Entier( int x, int z) {
-        File file = new File(main.getDataFolder(), "InformationChunck.yml");
-        YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 
-        if (!config.contains("players")) {
-
-        }
-
-        ConfigurationSection playersSection = config.getConfigurationSection("players");
-
-        String chunkcore = x+ ";"+ z;
-
-        for (String uuid : playersSection.getKeys(false)) {
-
-
-
-            List<String> claimedChunks = config.getStringList("players." + uuid + ".claimed_chunks");
-
-
-            if (claimedChunks.contains(chunkcore)) {
-
-            }
-        }
-
-
-    }
 
 
 
