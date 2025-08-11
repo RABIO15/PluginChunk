@@ -192,13 +192,13 @@ public class CommandManager  implements CommandExecutor {
                 }
 
 
-                if (args[0].equalsIgnoreCase("remove")) {
+                if (args[0].equalsIgnoreCase("leave")) {
 
                     Other_player.sendMessage("§2 Vous venez de vous retirer d'une team!");
 
                     Other_player.sendMessage("§3 Vous avez quittez la team : " + teams.getTeamDuJoueur(Other_player));
 
-                    teams.RemovePlayerTeam(Other_player.getUniqueId());
+                    teams.RemovePlayerTeam(Other_player.getUniqueId(),player);
 
 
                     return true;

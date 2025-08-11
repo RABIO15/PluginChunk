@@ -81,37 +81,42 @@ public class TeamManager  {
     }
 
 
-    public void SetFondateurTeam(Player player){
-        File file = new File(main.getDataFolder(), "TeamList.yml");
+    public void SetFondateurTeam(Player player) {
+        player.sendMessage("testouille 1 en action");
+
+        File file = new File(main.getDataFolder(), "TeamLista.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 
-        // On récupère la liste existante, ou une nouvelle si elle n'existe pas
-        List<String> teams = config.getStringList("FondateurTeam");
-        String Name_Player = player.getName();
+        String playerName = player.getName();
 
-        // On ajoute le nouveau nom si pas déjà présent
-        if (!teams.contains(Name_Player)) {
-            teams.add(Name_Player);
-            config.set("TeamFondateur", teams);
-
-
-
-            try {
-                config.save(file);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }else{
-
-            player.sendMessage("§4 Ce nom de team est déjà prix !");
-
+        // On récupère la section FondateurTeam
+        ConfigurationSection founderSection = config.getConfigurationSection("FondateurTeam");
+        if (founderSection == null) {
+            founderSection = config.createSection("FondateurTeam");
         }
 
+        // On récupère la liste d'équipes pour ce joueur
 
+        String nom = getTeamDuJoueur(player);
+        List<String> playerTeams = founderSection.getStringList(playerName);
+        if (!playerTeams.contains(nom)) { // éviter doublons
+            playerTeams.add(nom);
+        }
+        playerTeams.add(nom);
+        // On sauvegarde la liste d'équipes dans la section du joueur
+        founderSection.set(playerName, playerTeams);
+
+        try {
+            config.save(file);
+            player.sendMessage("§aAjout réussi  le nom c'est !" + nom);
+        } catch (IOException e) {
+            player.sendMessage("§cErreur lors de la sauvegarde !");
+            e.printStackTrace();
+        }
     }
 
     public void RemoveFondateurTeam(Player player){
-        File file = new File(main.getDataFolder(), "TeamList.yml");
+        File file = new File(main.getDataFolder(), "TeamLista.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 
         // On récupère la liste existante, ou une nouvelle si elle n'existe pas
@@ -120,10 +125,11 @@ public class TeamManager  {
         String Nom_team = getTeamDuJoueur(player);
 
         // On ajoute le nouveau nom si pas déjà présent
+        ConfigurationSection founderSection = config.getConfigurationSection("FondateurTeam");
+        List<String> playerTeams = founderSection.getStringList(player.getName());
 
-        teams.remove(Nom_team);
-        config.set("TeamFondateur", teams);
-        RemovePlayerTeam(player.getUniqueId());
+        playerTeams.remove(getTeamDuJoueur(player));
+        founderSection.set(player.getName(), playerTeams);
 
         try {
             config.save(file);
@@ -202,14 +208,15 @@ public class TeamManager  {
 
         // On ajoute le nouveau nom si pas déjà présent
         if (!teams.contains(name)) {
+
             teams.add(name);
             config.set("team", teams);
 
-            SetFondateurTeam(player);
+
 
             SetTeamJoueur(player.getUniqueId(),name);
             player.sendMessage("§2 Felicitation Vous venez de crée votre team la team :" + ChatColor.GOLD +name);
-
+            SetFondateurTeam(player);
             try {
                 config.save(file);
             } catch (IOException e) {
@@ -230,16 +237,16 @@ public class TeamManager  {
         File file = new File(main.getDataFolder(), "TeamList.yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 
-        // On récupère la liste existante, ou une nouvelle si elle n'existe pas
+
         List<String> teams = config.getStringList("team");
 
         String Nom_team = getTeamDuJoueur(player);
 
-        // On ajoute le nouveau nom si pas déjà présent
+
 
             teams.remove(Nom_team);
             config.set("team", teams);
-            RemovePlayerTeam(player.getUniqueId());
+            RemovePlayerTeam(player.getUniqueId(),player);
 
             try {
                 config.save(file);
@@ -357,9 +364,10 @@ public class TeamManager  {
 
     //methode pour enlever un joueur de l'équipe
 
-    public void RemovePlayerTeam(UUID joueuruuid){
+    public void RemovePlayerTeam(UUID joueuruuid,Player player){
 
         Team.remove(joueuruuid);
+        RemoveFondateurTeam(player);
         save.Save_HashMapTeam(Team);
 
 

@@ -177,7 +177,7 @@ public class ClaimManager implements Listener {
 
                   player.sendMessage("§2 +5 de power votre power actuel est de " + manage_power.GetPowerPlayer(player));
               } else {
-
+                  player.sendMessage("§1 YAMMI YAMMi ");
                   UnclaimChunnckTeam(player);
 
 
@@ -191,6 +191,7 @@ public class ClaimManager implements Listener {
            }else{
 
                 if(manage_power.IsFondateurTeam(player)){
+                    player.sendMessage("§1 LETS GO! ");
 
                     UnclaimChunnckTeam(player);
 
@@ -470,7 +471,7 @@ public void claim_claim(Player player, int ChunkX,int ChunkZ){
         int ChunkX = chunk.getX();
         int ChunkZ = chunk.getZ();
 
-        player.sendMessage("Vous êtes dans une team !");
+        player.sendMessage("Vous êteshzrthzrthzrt dans une team !");
 
         information_Chunk.RemoveClaimedChunk(player, ChunkX, ChunkZ);
         information_Chunk.RemoveClaimedChunkTeam(player, ChunkX, ChunkZ);
