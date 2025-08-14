@@ -97,7 +97,7 @@ public class ClaimManager implements Listener {
                     if(power_ennemy <= 0){
 
                            information_Chunk.addClaimedChunkPower(player, ChunkX, ChunkZ, ajout);
-                           player.sendMessage("§2 Cela à été claim car le power de l'ennmie et trop faible son claim était de + " + "§7" + power_ennemy);
+
 
 
                     } else if (power_ennemy <= ajout) {
@@ -177,11 +177,15 @@ public class ClaimManager implements Listener {
 
                   player.sendMessage("§2 +5 de power votre power actuel est de " + manage_power.GetPowerPlayer(player));
               } else {
-                  player.sendMessage("§1 YAMMI YAMMi ");
+
                   UnclaimChunnckTeam(player);
 
 
               }
+          }else {
+
+
+
           }
 
           } else {
@@ -191,7 +195,7 @@ public class ClaimManager implements Listener {
            }else{
 
                 if(manage_power.IsFondateurTeam(player)){
-                    player.sendMessage("§1 LETS GO! ");
+
 
                     UnclaimChunnckTeam(player);
 
@@ -334,22 +338,7 @@ public class ClaimManager implements Listener {
 
 
 
-        }else{
-
-            if(infobreak.isChunkClaimedParQuelquUn(ChunkX,ChunkZ) ){
-                player.sendMessage("§4 CLAIM PAR QUELQU'UN");
-
-            }
-
-            if(infobreak.isChunkClaimedParQuelquUn_Team(ChunkX,ChunkZ)){
-
-                player.sendMessage("§4 CLAIM PAR UNE TEAM");
-
-            }
-
-
         }
-
 
 
 
@@ -389,12 +378,12 @@ public class ClaimManager implements Listener {
 
                     }else{
 
-                        player.sendMessage("§1 YAAAAA");
+
                     }
 
 
                 } else if (!infobreak.OwnChunk(player, ChunkX, ChunkZ)) {
-                    player.sendMessage("§4 YAAAAA");
+
                 }
 
 

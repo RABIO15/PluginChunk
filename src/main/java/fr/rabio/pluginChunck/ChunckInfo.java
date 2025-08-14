@@ -87,7 +87,7 @@ public class ChunckInfo {
 
 
                 if(!teams.ContainTeam_Other_Version(player)){
-                    player.sendMessage("Vous n'êtes dans aucune team et vous faites un claim");
+
                     addClaimedChunk(player, chunkX, chunkZ);
 
                 }
@@ -225,7 +225,7 @@ public class ChunckInfo {
         String chunkCoord = chunkX + ";" + chunkZ;
         if (chunks.contains(chunkCoord)) {
 
-          player.sendMessage("happy happy");
+
             return true;
 
         }

@@ -152,12 +152,12 @@ public class CommandManager  implements CommandExecutor {
 */
 
                 if (args[0].equalsIgnoreCase("add")) {
+                    if(player.isOp()) {
+                        Other_player.sendMessage("§2 Vous venez de vous ajoutez dans une team!");
 
-                    Other_player.sendMessage("§2 Vous venez de vous ajoutez dans une team!");
-
-                    teams.SetTeamJoueur(Other_player.getUniqueId(), args[1]);
-                    Other_player.sendMessage("§3 Vous êtes desormais dans la teams : " + args[1]);
-
+                        teams.SetTeamJoueur(Other_player.getUniqueId(), args[1]);
+                        Other_player.sendMessage("§3 Vous êtes desormais dans la teams : " + args[1]);
+                    }
 
                     return true;
 
@@ -194,7 +194,7 @@ public class CommandManager  implements CommandExecutor {
 
                 if (args[0].equalsIgnoreCase("leave")) {
 
-                    Other_player.sendMessage("§2 Vous venez de vous retirer d'une team!");
+
 
                     Other_player.sendMessage("§3 Vous avez quittez la team : " + teams.getTeamDuJoueur(Other_player));
 
@@ -220,6 +220,27 @@ public class CommandManager  implements CommandExecutor {
 
                 if (args.length >= 1) {
 
+                    if (args[0].equalsIgnoreCase("info")) {
+
+                        ChunckInfo info = new ChunckInfo(main);
+                        Chunk chunk = player.getLocation().getChunk();
+                        int ChunkX = chunk.getX();
+                        int ChunkZ = chunk.getZ();
+
+
+                       if(info.OwnChunk(player,ChunkX,ChunkZ)){
+
+                           player.sendMessage("§a Vous êtes bien le proprio de ce chunk");
+
+                       }else{
+
+                           player.sendMessage("§4 ce chunk ne vous appartient pas  ");
+
+                       }
+
+                        return true;
+                    }
+
 
 
 
@@ -231,7 +252,6 @@ public class CommandManager  implements CommandExecutor {
 
 
                         power_add += Integer.parseInt(args[0]);
-                        player.sendMessage("§4 L'ajout est de : "+  power_add);
 
                         player.sendMessage("§2 Vous venez de   ajoutez  : " + power_add + " §2 power au chunk ");
                         player.sendMessage("§7 Il ne vous restes que : " + manage_power.GetPowerPlayer(player) + " §7 power");
@@ -246,7 +266,7 @@ public class CommandManager  implements CommandExecutor {
 
                     } catch (NumberFormatException e) {
 
-                        player.sendMessage("§4 TEST4");
+
                         player.sendMessage(" TU DOIS METTRE UN CHIFFRE !");
                     }
 
@@ -255,12 +275,12 @@ public class CommandManager  implements CommandExecutor {
                     return true;
                 }else {
 
-                    player.sendMessage("§4 TEST5");
-                    player.sendMessage("§8 On essaye un truc");
+
+
                     power_add = 0;
 
                     claim.Claim(player,power_add);
-                    player.sendMessage("§8 cela a  marcher ?");
+                    player.sendMessage("§a Vous venez de claim ce chunk !");
 
 
 
@@ -268,7 +288,7 @@ public class CommandManager  implements CommandExecutor {
 
                 }
 
-                player.sendMessage("§4 TEST6");
+
                 return true;
             }
 
@@ -298,67 +318,56 @@ public class CommandManager  implements CommandExecutor {
                int power =  manage_power.GetPowerPlayer(player);
                 player.sendMessage("Votre est de :  " + power);
 
-                if (args.length >= 2 && args[0].equalsIgnoreCase("add")) {
+                if(player.isOp()) {
+                    if (args.length >= 2 && args[0].equalsIgnoreCase("add")) {
 
-                    if(args[1] != null){
+                        if (args[1] != null) {
 
-                        try{
-                            int power_add = Integer.parseInt(args[1]);
+                            try {
+                                int power_add = Integer.parseInt(args[1]);
 
-                            manage_power.AddPower(player, power_add);
-                            player.sendMessage("§2 Vous venez de vous ajoutez : " + power_add +" §2 power" );
-                            player.sendMessage("§7 Il ne vous restes que : " + manage_power.GetPowerPlayer(player)+" §7 power");
+                                manage_power.AddPower(player, power_add);
+                                player.sendMessage("§2 Vous venez de vous ajoutez : " + power_add + " §2 power");
+                                player.sendMessage("§7 Il ne vous restes que : " + manage_power.GetPowerPlayer(player) + " §7 power");
 
 
-                        }catch(NumberFormatException e){
+                            } catch (NumberFormatException e) {
 
-                            player.sendMessage(" TU DOIS METTRE UN CHIFFRE !");
+                                player.sendMessage(" TU DOIS METTRE UN CHIFFRE !");
+                            }
+
+
                         }
 
 
-
-
-
+                        return true;
                     }
 
 
+                    if (args.length >= 2 && args[0].equalsIgnoreCase("remove")) {
+
+                        if (args[1] != null) {
+
+                            try {
+                                int power_remove = Integer.parseInt(args[1]);
+
+                                manage_power.RemovePower(player, power_remove);
+                                player.sendMessage("§4 Vous venez de vous retirer : " + power_remove + " §4 power");
+                                player.sendMessage("§7 Il ne vous restes que : " + manage_power.GetPowerPlayer(player) + " §7 power");
+
+                            } catch (NumberFormatException e) {
+
+                                player.sendMessage(" TU DOIS METTRE UN CHIFFRE !");
+                            }
 
 
-                    return true;
-                }
-
-
-
-
-                if (args.length >= 2 && args[0].equalsIgnoreCase("remove")) {
-
-                    if(args[1] != null){
-
-                        try{
-                            int power_remove = Integer.parseInt(args[1]);
-
-                            manage_power.RemovePower(player, power_remove);
-                            player.sendMessage("§4 Vous venez de vous retirer : " + power_remove +" §4 power" );
-                            player.sendMessage("§7 Il ne vous restes que : " + manage_power.GetPowerPlayer(player)+" §7 power");
-
-                        }catch(NumberFormatException e){
-
-                            player.sendMessage(" TU DOIS METTRE UN CHIFFRE !");
                         }
 
 
-
-
-
+                        return true;
                     }
 
-
-
-
-                    return true;
                 }
-
-
 
 
                 return true;

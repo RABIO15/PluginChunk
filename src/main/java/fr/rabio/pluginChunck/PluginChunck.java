@@ -27,6 +27,15 @@ public final class PluginChunck extends JavaPlugin {
         getCommand("claim").setExecutor(new CommandManager(this));
         getCommand("unclaim").setExecutor(new CommandManager(this));
         getCommand("power").setExecutor(new CommandManager(this));
+        System.out.println("____________________________");
+        System.out.println("                            ");
+        System.out.println("                            ");
+        System.out.println("                            ");
+        System.out.println("Plugin en cour de démarrage ");
+        System.out.println("                            ");
+        System.out.println("                            ");
+        System.out.println("                            ");
+        System.out.println("____________________________");
 
 
 
@@ -36,7 +45,15 @@ public final class PluginChunck extends JavaPlugin {
     @Override
     public void onDisable() {
 
-
+        System.out.println("____________________________");
+        System.out.println("                            ");
+        System.out.println("                            ");
+        System.out.println("                            ");
+        System.out.println("     Plugin ce STOP         ");
+        System.out.println("                            ");
+        System.out.println("                            ");
+        System.out.println("                            ");
+        System.out.println("____________________________");
 
     }
 }

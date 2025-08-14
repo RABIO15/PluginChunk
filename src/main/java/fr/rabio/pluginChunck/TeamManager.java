@@ -277,12 +277,12 @@ public class TeamManager  {
 
 
         if(getTeamDuJoueur(player) != null){
-            player.sendMessage("Vous êtes dans une team bravo !");
+
             return true;
 
         }else {
 
-            player.sendMessage("§4Vous n'êtes dans aucune  team  GET OUTT!");
+
 
                 return false;
             }
